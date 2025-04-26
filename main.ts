@@ -1,3 +1,6 @@
+import { centerTexting } from './Layers/CenterText.ts';
+import { exteriorEdging } from './Layers/ExteriorEdging.ts';
+import { layerGridsToStringList } from './Layers/Layer.ts';
 import { intStringFixed, padEqual, padRepeat } from './utils/strUtils.ts';
 import { getTerminalSize, TerminalSize } from './utils/terminalUtils.ts';
 
@@ -50,6 +53,15 @@ async function renderScreen(size: TerminalSize) {
 }
 
 function drawScreen(size: TerminalSize): string[] {
+	const texts  = ['Welcome', 'This is a pretty cool app'];
+	const layers = [
+		exteriorEdging(size),
+		centerTexting(size, texts)
+	];
+	return layerGridsToStringList(layers);
+}
+
+function drawScreenOld(size: TerminalSize): string[] {
 	const textRows = [];
 	for (let i = 0; i < size.h; i++) {
 		const greer = intStringFixed(i, 3);

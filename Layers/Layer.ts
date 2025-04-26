@@ -28,6 +28,35 @@ export abstract class Layer {
 	}
 }
 
-export function combineGridsToStringList(grids: OutputGrid[]): string[] {
-	return [];
+export function layerGridsToStringList(grids: OutputGrid[]): string[] {
+	const height = grids[0].size.h;
+	const width = grids[0].size.w;
+
+	const outputStrs: string[] = [];
+
+	//We boutta nest some loops
+	for(let y = 0; y < height; y++){
+		let lineStrArr: string[] = [];
+		
+		for(let x = 0; x < width; x++){
+			let char = getCharFromGridsAtCoord(grids, x, y);
+			lineStrArr.push(char);
+		}
+
+		outputStrs.push(lineStrArr.join(''));
+	}
+	return outputStrs;
+}
+
+
+
+function getCharFromGridsAtCoord(grids: OutputGrid[], x: number, y: number){
+	let char = ' ';
+	for(let i = 0; i < grids.length; i++){
+		const item = grids[i].items[x][y]; 
+		if(item !== undefined && item !== ''){
+			char = item;
+		}
+	}
+	return char;
 }

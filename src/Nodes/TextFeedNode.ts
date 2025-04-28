@@ -13,7 +13,7 @@ export class TextFeedNode extends Node {
 		this.numReq = minHeight;
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return this.numReq;
 	}
 

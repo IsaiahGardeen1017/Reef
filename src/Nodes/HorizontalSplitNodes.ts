@@ -19,7 +19,7 @@ export class HorizontalSplitNode extends Node {
 		this.bot = botNode;
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		const children = this.top.minHeight + this.bot.minHeight;
 		return this.splitStr ? children + 1 : children;
 	}

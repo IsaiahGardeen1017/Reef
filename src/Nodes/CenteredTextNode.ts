@@ -12,7 +12,7 @@ export class CenteredTextNode extends Node {
 		this.numReq = minHeight;
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return this.numReq;
 	}
 

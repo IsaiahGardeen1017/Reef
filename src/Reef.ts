@@ -27,6 +27,7 @@ export class ReefInstance {
 
 	rerender = () => {
 		this.redraw = true;
+		return;
 	};
 
 	async exitApplication() {

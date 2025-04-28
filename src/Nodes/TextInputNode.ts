@@ -37,7 +37,7 @@ export class TextInputNode extends Node {
 		this.afterCurser = '';
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return 1;
 	}
 

@@ -9,7 +9,7 @@ export class HomeNode extends Node {
 		this.child = child;
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return this.child.minHeight;
 	}
 

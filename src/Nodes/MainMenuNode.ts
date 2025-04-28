@@ -21,7 +21,7 @@ export class MainMenuNode extends Node {
 		this.entries = entries ? entries : [];
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return this.entries.length + 2;
 	}
 

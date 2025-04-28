@@ -1,12 +1,12 @@
-import { InputManagaer } from './TuiSrc/InputManger.ts';
-import { BorderNode } from './TuiSrc/Nodes/BorderNode.ts';
-import { CenteredTextNode } from './TuiSrc/Nodes/CenteredTextNode.ts';
-import { HorizontalSplitNode, HorizontalSplitNodeBottomInput } from './TuiSrc/Nodes/HorizontalSplitNodes.ts';
-import { MainMenuEntry, MainMenuNode } from './TuiSrc/Nodes/MainMenuNode.ts';
-import { PaddingNode } from './TuiSrc/Nodes/PaddingNode.ts';
-import { TextFeedNode } from './TuiSrc/Nodes/TextFeedNode.ts';
-import { TextInputNode } from './TuiSrc/Nodes/TextInputNode.ts';
-import { ReefInstance } from './TuiSrc/Reef.ts';
+import { InputManagaer } from './src/InputManger.ts';
+import { BorderNode } from './src/Nodes/BorderNode.ts';
+import { CenteredTextNode } from './src/Nodes/CenteredTextNode.ts';
+import { HorizontalSplitNode, HorizontalSplitNodeBottomInput } from './src/Nodes/HorizontalSplitNodes.ts';
+import { MainMenuEntry, MainMenuNode } from './src/Nodes/MainMenuNode.ts';
+import { PaddingNode } from './src/Nodes/PaddingNode.ts';
+import { TextFeedNode } from './src/Nodes/TextFeedNode.ts';
+import { TextInputNode } from './src/Nodes/TextInputNode.ts';
+import { ReefInstance } from './src/Reef.ts';
 
 const tuiManger = new ReefInstance();
 

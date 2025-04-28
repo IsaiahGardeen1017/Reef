@@ -12,7 +12,7 @@ export class BorderNode extends Node {
 		this.char = borderChar.charAt(0);
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return this.child.minHeight + 2;
 	}
 

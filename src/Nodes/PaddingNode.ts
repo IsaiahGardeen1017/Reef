@@ -16,7 +16,7 @@ export class PaddingNode extends Node {
 		this.padChar = padChar.charAt(0);
 	}
 
-	get minHeight() {
+	get minHeight(): number {
 		return this.child.minHeight;
 	}
 

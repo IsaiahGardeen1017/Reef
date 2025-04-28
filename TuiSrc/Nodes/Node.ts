@@ -7,8 +7,10 @@ export abstract class Node {
 
 	/**
 	 * When input arrives at node (Typically just one key at a time) the node can either do something with the input or send it to a child
+	 * @param input
+	 * @returns true if input was used, false if not
 	 */
-	abstract handleInput(input: Uint8Array<ArrayBuffer>): void;
+	abstract handleInput(input: Uint8Array<ArrayBuffer>): boolean;
 
 	renderStringsSafe(size: TerminalSize): string[] {
 		if (size.h === 0) {

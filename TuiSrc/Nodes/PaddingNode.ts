@@ -20,7 +20,7 @@ export class PaddingNode extends Node {
 		return this.child.minHeight;
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>): void {
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
 		return this.child.handleInput(input);
 	}
 

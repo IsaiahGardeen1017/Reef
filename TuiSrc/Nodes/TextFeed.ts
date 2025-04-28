@@ -25,8 +25,8 @@ export class TextFeedNode extends Node {
 		this.lines = [];
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>) {
-		// This should not get input
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
+		return false;
 	}
 
 	renderStrings(size: TerminalSize): string[] {

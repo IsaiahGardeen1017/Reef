@@ -51,12 +51,14 @@ export class TextInput extends Node {
 		}
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>): void {
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
+		let used = false;
 		if (input) {
 			const eventCode = input[0];
 			switch (eventCode) {
 				case 127: //Backspace
 					this.beforeCurser = this.beforeCurser.substring(0, Math.max(this.beforeCurser.length - 2, 0));
+					used = true;
 					break;
 				case 27:
 					// Del, arrows
@@ -65,23 +67,27 @@ export class TextInput extends Node {
 							if (this.afterCurser.length > 1) {
 								this.afterCurser = this.afterCurser.substring(1, this.afterCurser.length - 1);
 							}
+							used = true;
 							break;
 						default:
-							//Do Nothing
+							//Do nothing
 					}
 					break;
 				case 13: // Enter
 					this.callAllListeneres(this.beforeCurser + this.afterCurser);
 					this.clearText();
+					used = true;
 					break;
 				default: {
 					const chunk = new TextDecoder().decode(input);
 					this.beforeCurser = this.beforeCurser + chunk;
+					used = true;
 					break;
 				}
 			}
 		}
 		this.rerender();
+		return used;
 	}
 
 	renderStrings(size: TerminalSize): string[] {

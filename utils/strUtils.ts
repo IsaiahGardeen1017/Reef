@@ -12,6 +12,39 @@ export function padEqual(str: string, len: number, padStr = ' ') {
 }
 
 /**
+ * 
+ * @param lines Input Lines
+ * @param height Height of output
+ * @returns A string array of length 'height', WARNING - strings are not of any set length
+ */
+export function centerHorizontal(lines: string[], height: number): string[]{
+	
+	const ll = lines.length;
+	if(ll > height){
+		return lines.slice(0, height - 1);
+	}else if (ll === height){
+		return lines;
+	}else{
+		let strs: string[] = [];
+		const numEmptyLinesToAdd = height - ll;
+		const numEmptyAfter = Math.ceil(numEmptyLinesToAdd / 2);
+		const numEmptyBefore = numEmptyLinesToAdd - numEmptyAfter;
+		addArrayEntries(strs, numEmptyBefore);
+		for(const l of lines){
+			strs.push(l);
+		}
+		addArrayEntries(strs, numEmptyAfter);
+		return strs;
+	}
+}
+
+function addArrayEntries(arr: string[], num: number){
+	for(let i = 0; i < num; i++){
+		arr.push('');
+	}
+}
+
+/**
  * @param str String to repeat
  * @param len Lenght of ouput
  * @returns str repeated to len length

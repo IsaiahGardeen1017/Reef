@@ -16,7 +16,7 @@ export class BorderNode extends Node {
 		return this.child.minHeight + 2;
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>) {
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
 		return this.child.handleInput(input);
 	}
 

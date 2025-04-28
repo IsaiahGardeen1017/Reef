@@ -13,8 +13,8 @@ export class HomeNode extends Node {
 		return this.child.minHeight;
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>) {
-		this.child.handleInput(input);
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
+		return this.child.handleInput(input);
 	}
 
 	renderStrings(size: TerminalSize): string[] {

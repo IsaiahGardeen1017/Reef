@@ -16,8 +16,8 @@ export class CenteredTextNode extends Node {
 		return this.numReq;
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>) {
-		// This should not get input
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
+		return false;
 	}
 
 	renderStrings(size: TerminalSize): string[] {

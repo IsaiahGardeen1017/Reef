@@ -24,8 +24,8 @@ export class HorizontalSplitNode extends Node {
 		return this.splitStr ? children + 1 : children;
 	}
 
-	handleInput(input: Uint8Array<ArrayBuffer>): void {
-		//Can't deal with input
+	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
+		return false;
 	}
 
 	renderStrings(size: TerminalSize): string[] {
@@ -50,15 +50,15 @@ export class HorizontalSplitNode extends Node {
 }
 
 export class HorizontalSplitNodeTopInput extends HorizontalSplitNode {
-	override handleInput(input: Uint8Array<ArrayBuffer>): void {
+	override handleInput(input: Uint8Array<ArrayBuffer>): boolean {
 		console.log('top input');
-		this.top.handleInput(input);
+		return this.top.handleInput(input);
 	}
 }
 
 export class HorizontalSplitNodeBottomInput extends HorizontalSplitNode {
-	override handleInput(input: Uint8Array<ArrayBuffer>): void {
+	override handleInput(input: Uint8Array<ArrayBuffer>): boolean {
 		console.log('bot input');
-		this.bot.handleInput(input);
+		return this.bot.handleInput(input);
 	}
 }

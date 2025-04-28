@@ -1,5 +1,5 @@
 import { padRepeat } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../TuiManager.ts';
+import { TerminalSize } from '../Reef.ts';
 import { BorderNode } from './BorderNode.ts';
 import { Node } from './Node.ts';
 
@@ -10,7 +10,7 @@ export type TextInputOpts = {
 
 export type AutoCompleter = (text: string) => string[];
 
-export class TextInput extends Node {
+export class TextInputNode extends Node {
 	beforeCurser: string;
 	afterCurser: string;
 	opts: TextInputOpts;

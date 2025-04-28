@@ -1,13 +1,12 @@
 import { centerHorizontal, padEqual, padRepeat } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../TuiManager.ts';
+import { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 
-
 export type MainMenuEntry = {
-	node: Node,
-	title: string,
-	letter: string,
-}
+	node: Node;
+	title: string;
+	letter: string;
+};
 
 export class MainMenuNode extends Node {
 	title: string;
@@ -64,7 +63,7 @@ export class MainMenuNode extends Node {
 
 			const lines = [this.title, ''.padEnd(size.w, ' ')];
 			for (const e of this.entries) {
-				const str = `[${e.letter}] - ${e.title}`
+				const str = `[${e.letter}] - ${e.title}`;
 				lines.push(str);
 
 				if (str.length > centeringWidth) {
@@ -84,4 +83,3 @@ export class MainMenuNode extends Node {
 		}
 	}
 }
-

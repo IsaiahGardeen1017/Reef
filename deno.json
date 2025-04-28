@@ -1,4 +1,8 @@
 {
+    "name": "@igardeen/reef",
+    "version": "0.0.1",
+    "license": "MIT",
+    "exports": "./mod.ts",
     "tasks": {
         "dev": "deno run -A main.ts",
         "devg": "deno run -A zzztesting.ts"

@@ -1,5 +1,5 @@
 import { maybeTruncate } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../TuiManager.ts';
+import { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 import { centerText } from './NodeFuncs.ts/TextCenterer.ts';
 
@@ -17,11 +17,11 @@ export class TextFeedNode extends Node {
 		return this.numReq;
 	}
 
-	sendLine(line: string){
+	sendLine(line: string) {
 		this.lines.push(line);
 	}
 
-	clearLines(){
+	clearLines() {
 		this.lines = [];
 	}
 
@@ -31,16 +31,14 @@ export class TextFeedNode extends Node {
 
 	renderStrings(size: TerminalSize): string[] {
 		const retStrs = [];
-		for(let i = 0; i < size.h; i++){
-			if(i < this.lines.length){
+		for (let i = 0; i < size.h; i++) {
+			if (i < this.lines.length) {
 				const str = maybeTruncate(this.lines[i], size.w);
 				retStrs.push(str);
-			}else{
-				retStrs.push(''.padEnd(size.w, ' '))
+			} else {
+				retStrs.push(''.padEnd(size.w, ' '));
 			}
 		}
 		return retStrs;
 	}
 }
-
-

@@ -3,15 +3,14 @@ import { CenteredTextNode } from './Nodes/CenteredTextNode.ts';
 import { HomeNode } from './Nodes/HomeNode.ts';
 import { Node } from './Nodes/Node.ts';
 
-export type TuiManagerOptions = {
+export type ReefInstanceOptions = {
 	fps: number;
 };
 
 const encoder = new TextEncoder();
 let DEL_frame = 0;
 
-
-export class TuiManager {
+export class ReefInstance {
 	redraw = true;
 	homeNode?: HomeNode;
 	inAlternateBuffer = false;
@@ -40,7 +39,7 @@ export class TuiManager {
 	async enterAlternateBuffer() {
 		if (!this.inAlternateBuffer) {
 			// \x1b[?1049h - Enter alternate screen buffer and clear the screen
-			await Deno.stdout.write(encoder.encode("\x1b[?1049h"));
+			await Deno.stdout.write(encoder.encode('\x1b[?1049h'));
 			this.inAlternateBuffer = true;
 		}
 	}
@@ -48,7 +47,7 @@ export class TuiManager {
 	async exitAlternateBuffer() {
 		if (this.inAlternateBuffer) {
 			// \x1b[?1049l - Exit alternate screen buffer and restore the original content
-			await Deno.stdout.write(encoder.encode("\x1b[?1049l"));
+			await Deno.stdout.write(encoder.encode('\x1b[?1049l'));
 			this.inAlternateBuffer = false;
 		}
 	}
@@ -57,7 +56,6 @@ export class TuiManager {
 		if (!this.homeNode) {
 			throw Error('TuiManager needs node to work');
 		}
-
 
 		Deno.stdin.setRaw(true);
 		this.enterAlternateBuffer();
@@ -133,7 +131,7 @@ async function renderScreen(size: TerminalSize, homeNode: HomeNode) {
 	let nodeToRender: Node = homeNode;
 
 	if (size.h < homeNode.minHeight) {
-		nodeToRender = new CenteredTextNode(["MAKE TERMINAL BIGGER"]); // Adjust minWidth as needed
+		nodeToRender = new CenteredTextNode(['MAKE TERMINAL BIGGER']); // Adjust minWidth as needed
 	}
 
 	const textRows = nodeToRender.renderStrings(size);
@@ -141,10 +139,10 @@ async function renderScreen(size: TerminalSize, homeNode: HomeNode) {
 
 	// Use ANSI escape codes to move cursor to top-left (1,1) and overwrite lines
 	// \x1b[H - Move cursor to home position (1,1)
-	await Deno.stdout.write(encoder.encode("\x1b[H"));
+	await Deno.stdout.write(encoder.encode('\x1b[H'));
 
 	for (let i = 0; i < textRows.length; i++) {
-		const line = textRows[i];;
+		const line = textRows[i];
 		// \x1b[K - Erase to end of line
 		// \x1b[<row>;<col>H - Move cursor to row, col
 		// We move to the beginning of the current row (i + 1, as ANSI is 1-indexed)
@@ -158,11 +156,10 @@ async function renderScreen(size: TerminalSize, homeNode: HomeNode) {
 	// The `renderStrings` function is modified to pad with empty lines.
 
 	// Move cursor to the end of the rendered content or bottom of the terminal
-	await Deno.stdout.write(encoder.encode("\x1b[H"));
+	await Deno.stdout.write(encoder.encode('\x1b[H'));
 	await Deno.stdout.write(encoder.encode('\x1b[?25l'));
 }
 
-
 async function delay() {
-	return await new Promise(resolve => setTimeout(resolve, 500));
+	return await new Promise((resolve) => setTimeout(resolve, 500));
 }

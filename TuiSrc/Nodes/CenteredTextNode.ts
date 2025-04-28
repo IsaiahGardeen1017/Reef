@@ -1,4 +1,4 @@
-import { TerminalSize } from '../TuiManager.ts';
+import { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 import { centerText } from './NodeFuncs.ts/TextCenterer.ts';
 

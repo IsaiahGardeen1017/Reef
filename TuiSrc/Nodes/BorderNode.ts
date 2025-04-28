@@ -1,5 +1,5 @@
 import { padRepeat } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../TuiManager.ts';
+import { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 
 export class BorderNode extends Node {

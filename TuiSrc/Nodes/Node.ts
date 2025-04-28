@@ -1,4 +1,4 @@
-import { TerminalSize } from '../TuiManager.ts';
+import { TerminalSize } from '../Reef.ts';
 
 export abstract class Node {
 	abstract renderStrings(size: TerminalSize): string[];

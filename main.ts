@@ -1,81 +1,18 @@
-import { centerTexting } from './Layers/CenterText.ts';
-import { exteriorEdging } from './Layers/ExteriorEdging.ts';
-import { layerGridsToStringList } from './Layers/Layer.ts';
-import { intStringFixed, padEqual, padRepeat } from './utils/strUtils.ts';
-import { getTerminalSize, TerminalSize } from './utils/terminalUtils.ts';
+import { InputManagaer } from './TuiSrc/InputManger.ts';
+import { BorderNode } from './TuiSrc/Nodes/BorderNode.ts';
+import { CenteredTextNode } from './TuiSrc/Nodes/CenteredTextNode.ts';
+import { HorizontalSplitNode, HorizontalSplitNodeBottomInput } from './TuiSrc/Nodes/HorizontalSplitNodes.ts';
+import { PaddingNode } from './TuiSrc/Nodes/PaddingNode.ts';
+import { TextInput } from './TuiSrc/Nodes/TextInput.ts';
+import { TuiManager } from './TuiSrc/TuiManager.ts';
 
-async function main() {
-	Deno.stdin.setRaw(true);
+const tuiManger = new TuiManager();
 
-	let lastSize = getTerminalSize();
-	let redraw = true;
-	await renderScreen(lastSize);
+const centerTextingNode = new CenteredTextNode(['Welcom', 'Node based rendering']);
+const textEntering = new TextInput(tuiManger.rerender, {});
+const paddedTextEntering = new PaddingNode(textEntering, 2, 1);
+const splitterNode = new HorizontalSplitNodeBottomInput(centerTextingNode, paddedTextEntering, 0.8, '-');
+const borderNode = new BorderNode(splitterNode, '#');
 
-	// Listen for 'q' key press to exit
-	const keyPressListener = async () => {
-		for await (const event of Deno.stdin.readable) {
-			const chunk = new TextDecoder().decode(event);
-			if (chunk === 'q') {
-				Deno.stdin.setRaw(false);
-				Deno.exit(0); // Exit the program
-			}
-			if (chunk === 'r') {
-				redraw = true;
-			}
-		}
-	};
-
-	// Start listening for key presses in a separate task.
-	keyPressListener();
-
-	while (true) {
-		await new Promise((resolve) => setTimeout(resolve, 100));
-
-		const newSize = getTerminalSize();
-		if (newSize.h !== lastSize.h || newSize.w !== lastSize.w) {
-			redraw = true;
-		}
-		if (redraw) {
-			await renderScreen(newSize);
-			lastSize = newSize;
-			redraw = false;
-		}
-	}
-}
-
-async function renderScreen(size: TerminalSize) {
-	const textRows = drawScreen(size);
-	const encoder = new TextEncoder();
-	await Deno.stdout.write(encoder.encode('\x1b[2J\x1b[H'));
-	for (const line of textRows) {
-		await Deno.stdout.write(encoder.encode('\n' + line));
-	}
-}
-
-function drawScreen(size: TerminalSize): string[] {
-	const texts  = ['Welcome', 'This is a pretty cool app'];
-	const layers = [
-		exteriorEdging(size),
-		centerTexting(size, texts)
-	];
-	return layerGridsToStringList(layers);
-}
-
-function drawScreenOld(size: TerminalSize): string[] {
-	const textRows = [];
-	for (let i = 0; i < size.h; i++) {
-		const greer = intStringFixed(i, 3);
-		if (i === 0 || i === size.h - 1) {
-			textRows.push(greer + padRepeat('-*', size.w - 3));
-		} else if (i === Math.floor(size.h / 2)) {
-			textRows.push(greer + padEqual('Hello!', size.w - 3));
-		} else if (i === Math.floor(size.h / 2) + 1) {
-			textRows.push(greer + padEqual(`h:${size.h} w:${size.w}`, size.w - 3));
-		} else {
-			textRows.push(greer + padRepeat(' ', size.w - 3));
-		}
-	}
-	return textRows;
-}
-
-main();
+tuiManger.setMainNode(borderNode);
+tuiManger.start();

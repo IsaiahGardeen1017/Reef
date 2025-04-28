@@ -1,16 +1,17 @@
 {
-  "tasks": {
-    "dev": "deno run -A main.ts"
-  },
-  "imports": {
-    "@std/assert": "jsr:@std/assert@1"
-  },
-  "fmt": {
-    "options": {
-      "useTabs": true,
-      "singleQuote": true,
-      "proseWrap": "never",
-      "lineWidth": 135
+    "tasks": {
+        "dev": "deno run -A main.ts",
+        "devg": "deno run -A zzztesting.ts"
+    },
+    "imports": {
+        "@std/assert": "jsr:@std/assert@1"
+    },
+    "fmt": {
+        "options": {
+            "useTabs": true,
+            "singleQuote": true,
+            "proseWrap": "never",
+            "lineWidth": 135
+        }
     }
-  }
 }

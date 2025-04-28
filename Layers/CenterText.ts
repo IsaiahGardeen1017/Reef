@@ -19,22 +19,14 @@ export function centerTexting(size: TerminalSize, lines: string[]): OutputGrid {
 		const blankStartIndex = strStartIndex + lineStr.length;
 
 		for (let x = 0; x < size.w; x++) {
-			if(x < strStartIndex){
+			if (x < strStartIndex) {
 				newOutputGrid.items[x][startingLine + i] = '';
-			}else if(x < blankStartIndex){
+			} else if (x < blankStartIndex) {
 				newOutputGrid.items[x][startingLine + i] = lineStr.charAt(x - strStartIndex);
-			}else{
+			} else {
 				newOutputGrid.items[x][startingLine + i] = '';
 			}
 		}
 	}
 	return newOutputGrid;
-}
-
-function emptyArray(len: number): string[]{
-	const arr = [];
-	for(let i = 0; i < len; i++){
-		arr.push(' ');
-	}
-	return arr;
 }

@@ -43,3 +43,21 @@ export function intStringFixed(int: number, len: number, pad = ' ') {
 		return intStr + padRepeat(pad, len - isl);
 	}
 }
+
+
+/**
+ * 
+ * @param str String to truncate
+ * @param len Desired Length
+ * @param truncator What truncation is marked with, '...' by default
+ * @param lengthener What the extra space is filled with
+ */
+export function maybeTruncate(str: string, len: number, truncator = '...', lengthener = ' '): string {
+	if(str.length === len){
+		return str;
+	}else if(str.length < len){
+		return str.padEnd(len, lengthener);
+	}else{
+		return str.substring(0, str.length - (1 + truncator.length)) + truncator;
+	}
+}

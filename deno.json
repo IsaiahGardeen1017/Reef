@@ -1,6 +1,6 @@
 {
     "name": "@igardeen/reef",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "license": "MIT",
     "exports": "./mod.ts",
     "tasks": {

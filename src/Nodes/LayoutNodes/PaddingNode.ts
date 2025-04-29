@@ -8,7 +8,7 @@ export class PaddingNode extends Node {
 	yPad: number;
 	padChar: string;
 
-	constructor(child: Node, xPadAmount: number, yPadAmount: number, padChar = ' ', opts: NodeOptions) {
+	constructor(child: Node, xPadAmount: number, yPadAmount: number, padChar = ' ', opts?: NodeOptions) {
 		super(opts);
 		this.child = child;
 		this.yPad = Math.floor(xPadAmount);

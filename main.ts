@@ -12,13 +12,14 @@ import { ReefInstance } from './src/Reef.ts';
 const tuiManger = new ReefInstance();
 
 const textFeed = new TextFeedNode(5);
-const textEntering = new TextInputNode({});
-textEntering.addListeningFunc((line) => {
+const textEntering = new TextInputNode();
+textEntering.addListener((line) => {
 	textFeed.sendLine(line);
 });
+
 const paddedTextEntering = new PaddingNode(textEntering, 2, 1);
 const paddedTextFeed = new PaddingNode(textFeed, 1, 0);
-const splitterNode = new HorizontalSplitNodeBottomInput(paddedTextFeed, paddedTextEntering, 0.8, '-');
+const splitterNode = new HorizontalSplitNodeBottomInput(paddedTextFeed, paddedTextEntering, { splitStr: '-', percentTop: 0.8 });
 
 const nodeEntries: MenuEntry[] = [{
 	node: splitterNode,

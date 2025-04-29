@@ -1,6 +1,6 @@
+import { centerText } from '../../NodeFuncs/TextCenterer.ts';
 import type { TerminalSize } from '../../Reef.ts';
 import { Node, NodeOptions } from '../Node.ts';
-import { centerText } from '../NodeFuncs.ts/TextCenterer.ts';
 
 export class CenteredTextNode extends Node {
 	lines: string[];

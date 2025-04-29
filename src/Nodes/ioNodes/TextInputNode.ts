@@ -2,14 +2,12 @@ import { padRepeat } from '../../../utils/strUtils.ts';
 import type { TerminalSize } from '../../Reef.ts';
 import type { BorderNode } from '../LayoutNodes/BorderNode.ts';
 import { Node, NodeOptions } from '../Node.ts';
-import { InputNode, ListenerFunction } from './InputNode.ts';
+import { AutoCompleter, InputNode, ListenerFunction } from './InputNode.ts';
 
 export type TextInputOptions = NodeOptions & {
 	label?: string;
 	autoCompleter?: AutoCompleter;
 };
-
-export type AutoCompleter = (text: string) => string[];
 
 export class TextInputNode extends InputNode<string, TextInputOptions> {
 	beforeCurser: string;
@@ -40,7 +38,7 @@ export class TextInputNode extends InputNode<string, TextInputOptions> {
 			const eventCode = input[0];
 			switch (eventCode) {
 				case 127: //Backspace
-					this.beforeCurser = this.beforeCurser.substring(0, Math.max(this.beforeCurser.length - 2, 0));
+					this.beforeCurser = this.beforeCurser.substring(0, Math.max(this.beforeCurser.length - 1, 0));
 					used = true;
 					break;
 				case 27:

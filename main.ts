@@ -1,13 +1,13 @@
-import type { InputManagaer } from './src/InputManger.ts';
-import type { BorderNode } from './src/Nodes/LayoutNodes/BorderNode.ts';
-import { CenteredTextNode } from './src/Nodes/LayoutNodes/CenteredTextNode.ts';
-import { HorizontalSplitNodeBottomInput } from './src/Nodes/LayoutNodes/HorizontalSplitNodes.ts';
-import { MainMenuNode } from './src/Nodes/NavigationNodes/MainMenuNode.ts';
-import { MenuEntry } from './src/Nodes/NavigationNodes/NavigationNode.ts';
-import { PaddingNode } from './src/Nodes/LayoutNodes/PaddingNode.ts';
-import { TextFeedNode } from './src/Nodes/ioNodes/TextFeedNode.ts';
-import { TextInputNode } from './src/Nodes/ioNodes/TextInputNode.ts';
-import { ReefInstance } from './src/Reef.ts';
+import {
+	CenteredTextNode,
+	HorizontalSplitNodeBottomInput,
+	MainMenuNode,
+	MenuEntry,
+	PaddingNode,
+	ReefInstance,
+	TextFeedNode,
+	TextInputNode,
+} from './mod.ts';
 
 const tuiManger = new ReefInstance();
 

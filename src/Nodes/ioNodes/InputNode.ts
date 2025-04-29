@@ -1,7 +1,7 @@
 import { Node, NodeOptions } from '../Node.ts';
 
-export type AutoCompleter = (text: string) => string[];
 export type ListenerFunction<T> = (input: T) => any;
+export type AutoCompleter = (text: string) => string[];
 
 export abstract class InputNode<T, O extends NodeOptions = NodeOptions> extends Node<O> {
 	listeners: ListenerFunction<T>[];

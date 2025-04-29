@@ -5,7 +5,8 @@
     "exports": "./mod.ts",
     "tasks": {
         "dev": "deno run -A main.ts",
-        "devg": "deno run -A zzztesting.ts"
+        "devg": "deno run -A key-testing.ts",
+        "build-exports": "deno run -A build-exports.ts"
     },
     "imports": {
         "@std/assert": "jsr:@std/assert@1"

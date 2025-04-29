@@ -1,7 +1,6 @@
 import { maybeTruncate } from '../../../utils/strUtils.ts';
 import type { TerminalSize } from '../../Reef.ts';
 import { Node, NodeOptions } from '../Node.ts';
-import type { centerText } from '../NodeFuncs.ts/TextCenterer.ts';
 
 export class TextFeedNode extends Node {
 	lines: string[];
@@ -33,7 +32,11 @@ export class TextFeedNode extends Node {
 		const retStrs = [];
 		for (let i = 0; i < size.h; i++) {
 			if (i < this.lines.length) {
-				const str = maybeTruncate(this.lines[i], size.w);
+				let index = i;
+				if (this.lines.length > size.h) {
+					index = i + (this.lines.length - size.h);
+				}
+				const str = maybeTruncate(this.lines[index], size.w);
 				retStrs.push(str);
 			} else {
 				retStrs.push(''.padEnd(size.w, ' '));

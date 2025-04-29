@@ -1,24 +1,12 @@
-import { BorderNode } from './src/Nodes/LayoutNodes/BorderNode.ts';
-import { CenteredTextNode } from './src/Nodes/LayoutNodes/CenteredTextNode.ts';
-import { HomeNode } from './src/Nodes/HomeNode.ts';
-import { HorizontalSplitNode } from './src/Nodes/LayoutNodes/HorizontalSplitNodes.ts';
-import { MainMenuNode, type MenuEntry } from './src/Nodes/NavigationNodes/MainMenuNode.ts';
-import { Node } from './src/Nodes/Node.ts';
-import { PaddingNode } from './src/Nodes/LayoutNodes/PaddingNode.ts';
-import { TextFeedNode } from './src/Nodes/ioNodes/TextFeedNode.ts';
-import { TextInputNode } from './src/Nodes/ioNodes/TextInputNode.ts';
-import { ReefInstance } from './src/Reef.ts';
-
-export {
-	BorderNode,
-	CenteredTextNode,
-	HomeNode,
-	HorizontalSplitNode,
-	MainMenuNode,
-	Node,
-	PaddingNode,
-	ReefInstance,
-	TextFeedNode,
-	TextInputNode,
-};
-export type { MenuEntry as MenuEntry };
+export * from './src/Nodes/HomeNode.ts';
+export * from './src/Nodes/ioNodes/InputNode.ts';
+export * from './src/Nodes/ioNodes/TextFeedNode.ts';
+export * from './src/Nodes/ioNodes/TextInputNode.ts';
+export * from './src/Nodes/LayoutNodes/BorderNode.ts';
+export * from './src/Nodes/LayoutNodes/CenteredTextNode.ts';
+export * from './src/Nodes/LayoutNodes/HorizontalSplitNodes.ts';
+export * from './src/Nodes/LayoutNodes/PaddingNode.ts';
+export * from './src/Nodes/NavigationNodes/MainMenuNode.ts';
+export * from './src/Nodes/NavigationNodes/NavigationNode.ts';
+export * from './src/Nodes/Node.ts';
+export * from './src/Reef.ts';

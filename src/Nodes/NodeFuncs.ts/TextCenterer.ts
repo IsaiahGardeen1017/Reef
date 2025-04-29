@@ -3,7 +3,7 @@
 // TODO Rewrite all of this
 // TODO Rewrite all of this
 
-import { TerminalSize } from '../../Reef.ts';
+import type { TerminalSize } from '../../Reef.ts';
 
 export function centerText(size: TerminalSize, lines: string[]): string[] {
 	const yext = centerTexting(size, lines);

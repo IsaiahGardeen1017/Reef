@@ -1,5 +1,5 @@
-import { centerHorizontal, padEqual, padRepeat } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../Reef.ts';
+import { centerHorizontal, padEqual, type padRepeat } from '../../utils/strUtils.ts';
+import type { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 
 export type MainMenuEntry = {

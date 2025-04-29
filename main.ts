@@ -1,8 +1,8 @@
-import { InputManagaer } from './src/InputManger.ts';
-import { BorderNode } from './src/Nodes/BorderNode.ts';
+import type { InputManagaer } from './src/InputManger.ts';
+import type { BorderNode } from './src/Nodes/BorderNode.ts';
 import { CenteredTextNode } from './src/Nodes/CenteredTextNode.ts';
-import { HorizontalSplitNode, HorizontalSplitNodeBottomInput } from './src/Nodes/HorizontalSplitNodes.ts';
-import { MainMenuEntry, MainMenuNode } from './src/Nodes/MainMenuNode.ts';
+import { type HorizontalSplitNode, HorizontalSplitNodeBottomInput } from './src/Nodes/HorizontalSplitNodes.ts';
+import { type MainMenuEntry, MainMenuNode } from './src/Nodes/MainMenuNode.ts';
 import { PaddingNode } from './src/Nodes/PaddingNode.ts';
 import { TextFeedNode } from './src/Nodes/TextFeedNode.ts';
 import { TextInputNode } from './src/Nodes/TextInputNode.ts';

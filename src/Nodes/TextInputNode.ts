@@ -1,6 +1,6 @@
 import { padRepeat } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../Reef.ts';
-import { BorderNode } from './BorderNode.ts';
+import type { TerminalSize } from '../Reef.ts';
+import type { BorderNode } from './BorderNode.ts';
 import { Node } from './Node.ts';
 
 export type TextInputOpts = {

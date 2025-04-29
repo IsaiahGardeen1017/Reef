@@ -1,7 +1,7 @@
-import { InputManagaer } from './InputManger.ts';
+import type { InputManagaer } from './InputManger.ts';
 import { CenteredTextNode } from './Nodes/CenteredTextNode.ts';
 import { HomeNode } from './Nodes/HomeNode.ts';
-import { Node } from './Nodes/Node.ts';
+import type { Node } from './Nodes/Node.ts';
 
 export type ReefInstanceOptions = {
 	fps: number;

@@ -1,7 +1,7 @@
-import { grog } from '../utils/grog.ts';
-import { padEqual } from '../utils/strUtils.ts';
-import { TerminalSize } from '../utils/terminalUtils.ts';
-import { GenEmptyOutputGrid, OutputGrid } from './Layer.ts';
+import type { grog } from '../utils/grog.ts';
+import type { padEqual } from '../utils/strUtils.ts';
+import type { TerminalSize } from '../utils/terminalUtils.ts';
+import { GenEmptyOutputGrid, type OutputGrid } from './Layer.ts';
 
 //Edging Str can o
 export function centerTexting(size: TerminalSize, lines: string[]): OutputGrid {

@@ -1,5 +1,5 @@
 import { padRepeat } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../Reef.ts';
+import type { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 
 export class PaddingNode extends Node {

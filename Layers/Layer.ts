@@ -1,4 +1,4 @@
-import { TerminalSize } from '../utils/terminalUtils.ts';
+import type { TerminalSize } from '../utils/terminalUtils.ts';
 
 export type LayerOptions = {};
 

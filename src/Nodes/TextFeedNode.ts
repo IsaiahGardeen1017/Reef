@@ -1,7 +1,7 @@
 import { maybeTruncate } from '../../utils/strUtils.ts';
-import { TerminalSize } from '../Reef.ts';
+import type { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
-import { centerText } from './NodeFuncs.ts/TextCenterer.ts';
+import type { centerText } from './NodeFuncs.ts/TextCenterer.ts';
 
 export class TextFeedNode extends Node {
 	lines: string[];

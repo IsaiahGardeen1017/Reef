@@ -1,5 +1,5 @@
-import { TerminalSize } from '../utils/terminalUtils.ts';
-import { GenEmptyOutputGrid, OutputGrid } from './Layer.ts';
+import type { TerminalSize } from '../utils/terminalUtils.ts';
+import { GenEmptyOutputGrid, type OutputGrid } from './Layer.ts';
 
 //Edging Str can o
 export function exteriorEdging(size: TerminalSize, edgingStr = '#'): OutputGrid {

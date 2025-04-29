@@ -1,4 +1,4 @@
-import { TerminalSize } from '../Reef.ts';
+import type { TerminalSize } from '../Reef.ts';
 import { Node } from './Node.ts';
 
 export class HomeNode extends Node {

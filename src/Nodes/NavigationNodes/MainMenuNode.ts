@@ -1,22 +1,13 @@
-import { centerHorizontal, padEqual, type padRepeat } from '../../utils/strUtils.ts';
-import type { TerminalSize } from '../Reef.ts';
-import { Node } from './Node.ts';
+import { centerHorizontal, padEqual, type padRepeat } from '../../../utils/strUtils.ts';
+import type { TerminalSize } from '../../Reef.ts';
+import { Node, NodeOptions } from '../Node.ts';
+import { MenuEntry, NavigationNode } from './NavigationNode.ts';
 
-export type MainMenuEntry = {
-	node: Node;
+export class MainMenuNode extends NavigationNode {
 	title: string;
-	letter: string;
-};
 
-export class MainMenuNode extends Node {
-	title: string;
-	entries: MainMenuEntry[];
-	selected: undefined | Node;
-	rerender: () => any;
-
-	constructor(rerenderFunc: () => any, title: string, entries: MainMenuEntry[]) {
-		super();
-		this.rerender = rerenderFunc;
+	constructor(title: string, entries: MenuEntry[], options?: NodeOptions) {
+		super(entries, options);
 		this.title = title;
 		this.entries = entries ? entries : [];
 	}
@@ -36,7 +27,6 @@ export class MainMenuNode extends Node {
 				if (input.length === 1) {
 					this.selected = undefined;
 				}
-				this.rerender();
 				return true;
 			}
 		}
@@ -48,7 +38,6 @@ export class MainMenuNode extends Node {
 
 		if (found) {
 			this.selected = found.node;
-			this.rerender();
 			return true;
 		}
 
@@ -63,7 +52,7 @@ export class MainMenuNode extends Node {
 
 			const lines = [this.title, ''.padEnd(size.w, ' ')];
 			for (const e of this.entries) {
-				const str = `[${e.letter}] - ${e.title}`;
+				const str = `[${e.letter}] - ${e.label}`;
 				lines.push(str);
 
 				if (str.length > centeringWidth) {

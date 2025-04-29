@@ -1,5 +1,5 @@
 import type { InputManagaer } from './InputManger.ts';
-import { CenteredTextNode } from './Nodes/CenteredTextNode.ts';
+import { CenteredTextNode } from './Nodes/LayoutNodes/CenteredTextNode.ts';
 import { HomeNode } from './Nodes/HomeNode.ts';
 import type { Node } from './Nodes/Node.ts';
 
@@ -24,11 +24,6 @@ export class ReefInstance {
 	setMainNode(node: Node) {
 		this.homeNode = new HomeNode(node, this.exitApplication);
 	}
-
-	rerender = () => {
-		this.redraw = true;
-		return;
-	};
 
 	async exitApplication() {
 		this.exitAlternateBuffer();
@@ -74,6 +69,7 @@ export class ReefInstance {
 					this.exitApplication();
 				} else {
 					this.homeNode?.handleInput(event);
+					this.redraw = true;
 				}
 			}
 		};

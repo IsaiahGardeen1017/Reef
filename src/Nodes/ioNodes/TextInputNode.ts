@@ -1,32 +1,25 @@
-import { padRepeat } from '../../utils/strUtils.ts';
-import type { TerminalSize } from '../Reef.ts';
-import type { BorderNode } from './BorderNode.ts';
-import { Node } from './Node.ts';
+import { padRepeat } from '../../../utils/strUtils.ts';
+import type { TerminalSize } from '../../Reef.ts';
+import type { BorderNode } from '../LayoutNodes/BorderNode.ts';
+import { Node, NodeOptions } from '../Node.ts';
+import { InputNode, ListenerFunction } from './InputNode.ts';
 
-export type TextInputOpts = {
+export type TextInputOptions = NodeOptions & {
 	label?: string;
 	autoCompleter?: AutoCompleter;
 };
 
 export type AutoCompleter = (text: string) => string[];
 
-export class TextInputNode extends Node {
+export class TextInputNode extends InputNode<string, TextInputOptions> {
 	beforeCurser: string;
 	afterCurser: string;
-	opts: TextInputOpts;
-	listeners: ((str: string) => any)[];
-	rerender: () => any;
 
-	constructor(rerenderFunc: () => any, options: TextInputOpts) {
-		super();
-		this.opts = options;
+	constructor(listeners?: ListenerFunction<string>[], opts?: TextInputOptions) {
+		super(listeners, opts);
 		this.beforeCurser = '';
 		this.afterCurser = '';
-		this.listeners = [];
-		this.rerender = rerenderFunc;
 	}
-
-	getIncomingKeys() {}
 
 	addToCurrentText(t: string) {
 		this.beforeCurser += t;
@@ -38,17 +31,7 @@ export class TextInputNode extends Node {
 	}
 
 	get minHeight(): number {
-		return 1;
-	}
-
-	addListeningFunc(func: (str: string) => any) {
-		this.listeners.push(func);
-	}
-
-	protected callAllListeneres(arg: string) {
-		for (let i = 0; i < this.listeners.length; i++) {
-			this.listeners[i](arg);
-		}
+		return this.calcMinHeight(1);
 	}
 
 	handleInput(input: Uint8Array<ArrayBuffer>): boolean {
@@ -74,7 +57,7 @@ export class TextInputNode extends Node {
 					}
 					break;
 				case 13: // Enter
-					this.callAllListeneres(this.beforeCurser + this.afterCurser);
+					this.notifyListeneres(this.beforeCurser + this.afterCurser);
 					this.clearText();
 					used = true;
 					break;
@@ -86,7 +69,6 @@ export class TextInputNode extends Node {
 				}
 			}
 		}
-		this.rerender();
 		return used;
 	}
 

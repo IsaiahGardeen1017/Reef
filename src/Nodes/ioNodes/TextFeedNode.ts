@@ -1,14 +1,14 @@
-import { maybeTruncate } from '../../utils/strUtils.ts';
-import type { TerminalSize } from '../Reef.ts';
-import { Node } from './Node.ts';
-import type { centerText } from './NodeFuncs.ts/TextCenterer.ts';
+import { maybeTruncate } from '../../../utils/strUtils.ts';
+import type { TerminalSize } from '../../Reef.ts';
+import { Node, NodeOptions } from '../Node.ts';
+import type { centerText } from '../NodeFuncs.ts/TextCenterer.ts';
 
 export class TextFeedNode extends Node {
 	lines: string[];
 	numReq: number;
 
-	constructor(minHeight = 0) {
-		super();
+	constructor(minHeight = 0, opts?: NodeOptions) {
+		super(opts);
 		this.lines = [];
 		this.numReq = minHeight;
 	}

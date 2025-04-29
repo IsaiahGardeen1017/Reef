@@ -1,13 +1,13 @@
-import { padRepeat } from '../../utils/strUtils.ts';
-import type { TerminalSize } from '../Reef.ts';
-import { Node } from './Node.ts';
+import { padRepeat } from '../../../utils/strUtils.ts';
+import type { TerminalSize } from '../../Reef.ts';
+import { Node, NodeOptions } from '../Node.ts';
 
 export class BorderNode extends Node {
 	child: Node;
 	char: string;
 
-	constructor(child: Node, borderChar: string) {
-		super();
+	constructor(child: Node, borderChar: string, options?: NodeOptions) {
+		super(options);
 		this.child = child;
 		this.char = borderChar.charAt(0);
 	}

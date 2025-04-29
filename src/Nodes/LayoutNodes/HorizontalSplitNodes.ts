@@ -1,27 +1,32 @@
-import { padRepeat } from '../../utils/strUtils.ts';
-import type { TerminalSize } from '../Reef.ts';
-import { Node } from './Node.ts';
+import { padRepeat } from '../../../utils/strUtils.ts';
+import type { TerminalSize } from '../../Reef.ts';
+import { Node, NodeOptions } from '../Node.ts';
 
-export class HorizontalSplitNode extends Node {
+export type HorizontalSplitNodeOptions = NodeOptions & {
+	percentTop?: number;
+	splitStr?: string;
+};
+
+export class HorizontalSplitNode extends Node<HorizontalSplitNodeOptions> {
 	top: Node;
 	bot: Node;
 	split: number;
 	splitStr?: string;
 
-	constructor(topNode: Node, botNode: Node, percentTop = .5, splitStr?: string) {
-		if (percentTop >= 1) {
+	constructor(topNode: Node, botNode: Node, opts?: HorizontalSplitNodeOptions) {
+		super(opts);
+		if (opts?.percentTop && opts.percentTop >= 1) {
 			throw Error('IDIOT DEVELOPER!, you cannot pass a value higher than 1 into HorizontalSplitNode constructor!');
 		}
-		super();
-		this.split = percentTop;
-		this.splitStr = splitStr;
+		this.split = opts?.percentTop || 0.5;
+		this.splitStr = opts?.splitStr || ' ';
 		this.top = topNode;
 		this.bot = botNode;
 	}
 
 	get minHeight(): number {
 		const children = this.top.minHeight + this.bot.minHeight;
-		return this.splitStr ? children + 1 : children;
+		return this.calcMinHeight(this.splitStr ? children + 1 : children);
 	}
 
 	handleInput(input: Uint8Array<ArrayBuffer>): boolean {

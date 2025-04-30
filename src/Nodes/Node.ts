@@ -15,6 +15,10 @@ export abstract class Node<O extends NodeOptions = NodeOptions> {
 
 	abstract get minHeight(): number;
 
+	getArgumentHints(): string[]{
+		return [];
+	};
+
 	protected calcMinHeight(min: number): number {
 		if (this.opts?.forcedMinHeight) {
 			return Math.max(min, this.opts.forcedMinHeight);

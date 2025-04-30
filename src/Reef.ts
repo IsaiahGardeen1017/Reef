@@ -24,6 +24,10 @@ export class ReefInstance {
 		this.homeNode = new HomeNode(node, this.exitApplication);
 	}
 
+	triggerRefresh(){
+		this.redraw = true;
+	}
+
 	async exitApplication() {
 		this.exitAlternateBuffer();
 		await Deno.stdout.write(encoder.encode('\x1b[?25h'));

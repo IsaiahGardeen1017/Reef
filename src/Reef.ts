@@ -13,15 +13,23 @@ export class ReefInstance {
 	redraw = true;
 	homeNode?: HomeNode;
 	inAlternateBuffer = false;
+	debugFunc?: (s: string) => any;
 
-	constructor(node?: Node) {
+	constructor(node?: Node, debugFunc?: (s: string) => any) {
 		if (node) {
 			this.setMainNode(node);
+		}
+		if(debugFunc){
+			this.debugFunc = debugFunc;
 		}
 	}
 
 	setMainNode(node: Node) {
 		this.homeNode = new HomeNode(node, this.exitApplication);
+	}
+
+	setDebugFunc(debugFunc: (s: string) => any){
+		this.debugFunc = debugFunc;
 	}
 
 	triggerRefresh(){
@@ -67,6 +75,9 @@ export class ReefInstance {
 
 		const keyPressListener = async () => {
 			for await (const event of Deno.stdin.readable) {
+				if(this.debugFunc){
+					this?.debugFunc('WOAH!!!');
+				}
 				const eventCode = event[0];
 				if (eventCode === 3) {
 					this.exitApplication();
@@ -74,6 +85,9 @@ export class ReefInstance {
 					this.homeNode?.handleInput(event);
 					this.redraw = true;
 				}
+			}
+			if(this.debugFunc){
+				this?.debugFunc('OVER!');
 			}
 		};
 
@@ -109,21 +123,6 @@ export type TerminalSize = {
 export function getTerminalSize(): TerminalSize {
 	const { columns, rows } = Deno.consoleSize();
 	return { w: columns, h: rows };
-}
-
-async function renderScreenOld(size: TerminalSize, homeNode: HomeNode) {
-	let nodeToRender: Node = homeNode;
-
-	if (size.h < homeNode.minHeight) {
-		nodeToRender = new CenteredTextNode(['MAKE TERMINAL BIGGER'], 1);
-	}
-
-	const textRows = nodeToRender.renderStrings(size);
-	console.clear();
-	await Deno.stdout.write(encoder.encode('\x1b[2J\x1b[H'));
-	for (const line of textRows) {
-		await Deno.stdout.write(encoder.encode('\n' + line));
-	}
 }
 
 async function renderScreen(size: TerminalSize, homeNode: HomeNode) {

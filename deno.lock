@@ -8,6 +8,9 @@
     "jsr:@std/path@^1.0.7": "1.0.8"
   },
   "jsr": {
+    "@igardeen/reef@0.0.3": {
+      "integrity": "5dfc76119c6ea330b796cc1a114aa93a33a785d89dff49668cf99e724ea685a4"
+    },
     "@std/assert@1.0.11": {
       "integrity": "2461ef3c368fe88bc60e186e7744a93112f16fd110022e113a0849e94d1c83c1",
       "dependencies": [

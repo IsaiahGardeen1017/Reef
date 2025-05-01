@@ -5,6 +5,7 @@
     "exports": "./mod.ts",
     "tasks": {
         "dev": "deno run -A main.ts",
+        "mt": "deno run -A mt-test.ts",
         "devg": "deno run -A key-testing.ts",
         "build-exports": "deno run -A build-exports.ts"
     },

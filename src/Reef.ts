@@ -19,7 +19,7 @@ export class ReefInstance {
 		if (node) {
 			this.setMainNode(node);
 		}
-		if(debugFunc){
+		if (debugFunc) {
 			this.debugFunc = debugFunc;
 		}
 	}
@@ -28,11 +28,11 @@ export class ReefInstance {
 		this.homeNode = new HomeNode(node, this.exitApplication);
 	}
 
-	setDebugFunc(debugFunc: (s: string) => any){
+	setDebugFunc(debugFunc: (s: string) => any) {
 		this.debugFunc = debugFunc;
 	}
 
-	triggerRefresh(){
+	triggerRefresh() {
 		this.redraw = true;
 	}
 
@@ -75,7 +75,7 @@ export class ReefInstance {
 
 		const keyPressListener = async () => {
 			for await (const event of Deno.stdin.readable) {
-				if(this.debugFunc){
+				if (this.debugFunc) {
 					this?.debugFunc('WOAH!!!');
 				}
 				const eventCode = event[0];
@@ -86,7 +86,7 @@ export class ReefInstance {
 					this.redraw = true;
 				}
 			}
-			if(this.debugFunc){
+			if (this.debugFunc) {
 				this?.debugFunc('OVER!');
 			}
 		};

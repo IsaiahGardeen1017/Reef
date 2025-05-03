@@ -1,6 +1,7 @@
 import { CenteredTextNode } from './Nodes/LayoutNodes/CenteredTextNode.ts';
 import { HomeNode } from './Nodes/HomeNode.ts';
 import type { Node } from './Nodes/Node.ts';
+import { mapEventToInput } from './EventToInput.ts';
 
 export type ReefInstanceOptions = {
 	fps: number;
@@ -14,6 +15,7 @@ export class ReefInstance {
 	homeNode?: HomeNode;
 	inAlternateBuffer = false;
 	debugFunc?: (s: string) => any;
+	exiting = false;
 
 	constructor(node?: Node, debugFunc?: (s: string) => any) {
 		if (node) {
@@ -37,10 +39,11 @@ export class ReefInstance {
 	}
 
 	async exitApplication() {
+		this.exiting = true;
 		this.exitAlternateBuffer();
 		await Deno.stdout.write(encoder.encode('\x1b[?25h'));
-		Deno.stdin.setRaw(false);
-		Deno.exit(0); // Exit the program
+		await Deno.stdin.setRaw(false);
+		await Deno.exit(0); // Exit the program
 	}
 
 	async enterAlternateBuffer() {
@@ -59,6 +62,25 @@ export class ReefInstance {
 		}
 	}
 
+	async reraw() {
+		await delay(250);
+		this.setRaw();
+		await delay(250);
+		this.setRaw();
+		await delay(250);
+		this.setRaw();
+		await delay(250);
+		this.setRaw();
+		await delay(250);
+		this.setRaw();
+	}
+
+	setRaw() {
+		if (!this.exiting) {
+			Deno.stdin.setRaw(true);
+		}
+	}
+
 	async start() {
 		if (!this.homeNode) {
 			throw Error('TuiManager needs node to work');
@@ -74,24 +96,31 @@ export class ReefInstance {
 		});
 
 		const keyPressListener = async () => {
-			for await (const event of Deno.stdin.readable) {
+			try {
+				for await (const event of Deno.stdin.readable) {
+					const eventCode = event[0];
+					if (eventCode === 3) {
+						this.exitApplication();
+					} else {
+						try {
+							await this.homeNode?.handleInput(event);
+						} catch (error) {
+							if (this.debugFunc) {
+								this?.debugFunc('ERROR! in key press listener: ' + error);
+							}
+						}
+						this.redraw = true;
+					}
+				}
+			} catch (error) {
 				if (this.debugFunc) {
-					this?.debugFunc('WOAH!!!');
+					this?.debugFunc('SERIOUS ERROR! in key press listener: ' + error);
 				}
-				const eventCode = event[0];
-				if (eventCode === 3) {
-					this.exitApplication();
-				} else {
-					this.homeNode?.handleInput(event);
-					this.redraw = true;
-				}
-			}
-			if (this.debugFunc) {
-				this?.debugFunc('OVER!');
 			}
 		};
 
 		// Start listening for key presses in a separate task.
+		Deno.stdin.setRaw(true);
 		keyPressListener();
 
 		while (true) {
@@ -109,9 +138,6 @@ export class ReefInstance {
 				this.redraw = false;
 			}
 		}
-	}
-
-	sendInputTo() {
 	}
 }
 
@@ -159,6 +185,6 @@ async function renderScreen(size: TerminalSize, homeNode: HomeNode) {
 	await Deno.stdout.write(encoder.encode('\x1b[?25l'));
 }
 
-async function delay() {
-	return await new Promise((resolve) => setTimeout(resolve, 500));
+async function delay(ms: number) {
+	return await new Promise((resolve) => setTimeout(resolve, ms));
 }

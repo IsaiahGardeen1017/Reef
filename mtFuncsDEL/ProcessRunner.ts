@@ -65,7 +65,6 @@ export class ProcessRunner {
 
 		try {
 			if (Deno.build.os === 'windows') {
-				// Use taskkill to kill the process tree on Windows
 				const pid = this.process.pid;
 				const killCmd = new Deno.Command('taskkill', {
 					args: ['/PID', pid.toString(), '/T', '/F'],
@@ -75,7 +74,6 @@ export class ProcessRunner {
 				const killProcess = killCmd.spawn();
 				await killProcess.status;
 			} else {
-				// On Unix-like systems, kill with SIGKILL
 				this.process.kill('SIGKILL');
 				await this.process.status;
 			}
@@ -84,8 +82,12 @@ export class ProcessRunner {
 			this._outputFunction(`Error stopping process: ${(error as any).message}`);
 		} finally {
 			this.process = null;
+			// Yield control back to the event loop
+			await new Promise((resolve) => setTimeout(resolve, 0));
 		}
 	}
+
+	//YO Gotti
 
 	private async handleStream(
 		stream: ReadableStream<Uint8Array>,

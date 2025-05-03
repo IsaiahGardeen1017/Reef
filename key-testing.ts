@@ -1,29 +1,20 @@
-Deno.stdin.setRaw(true);
-
-function exitApplication() {
-	Deno.exit(0);
-}
-
-Deno.addSignalListener('SIGINT', () => {
-	console.log(`Exiting with SIGINT`);
-	exitApplication();
-});
+import { mapEventToInput } from './src/EventToInput.ts';
 
 const keyPressListener = async () => {
-	for await (const event of Deno.stdin.readable) {
-		const eventCode = event[0];
-		const chunk = new TextDecoder().decode(event);
-		console.log(event);
-		console.log(eventCode);
-		console.log(chunk);
-		if (chunk === '') {
-			console.log('NOTHING');
+	try {
+		for await (const event of Deno.stdin.readable) {
+			const eventCode = event[0];
+			if (eventCode === 3) {
+				await Deno.stdin.setRaw(false);
+				Deno.exit();
+			}
+			console.log(`event: ${event}`);
+			console.log(`input: ${mapEventToInput(event)}`);
 		}
-		if (chunk === 'q') {
-			exitApplication();
-		}
+	} catch (error) {
+		console.log('SERIOUS ERROR! in key press listener: ' + error);
 	}
 };
 
-// Start listening for key presses in a separate task.
+await Deno.stdin.setRaw(true);
 keyPressListener();

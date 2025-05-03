@@ -4,10 +4,9 @@
     "license": "MIT",
     "exports": "./mod.ts",
     "tasks": {
-        "dev": "deno run -A main.ts",
-        "greeg": "deno run -A GREEGOR.ts",
+        "dev": "deno run -A sample-application.ts",
         "mt": "deno run -A mt-test.ts",
-        "devg": "deno run -A key-testing.ts",
+        "keys": "deno run -A key-testing.ts",
         "build-exports": "deno run -A build-exports.ts"
     },
     "imports": {

@@ -1,4 +1,4 @@
-const paths = ['./src/Nodes', './src/Reef.ts'];
+const paths = ['./src/Nodes', './src/Reef.ts', './src/EventToInput.ts'];
 
 let exports: string[] = [];
 

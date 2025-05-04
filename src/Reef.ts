@@ -2,6 +2,7 @@ import { CenteredTextNode } from './Nodes/LayoutNodes/CenteredTextNode.ts';
 import { HomeNode } from './Nodes/HomeNode.ts';
 import type { Node } from './Nodes/Node.ts';
 import { mapEventToInput } from './EventToInput.ts';
+import { assert } from '@std/assert';
 
 export type ReefInstanceOptions = {
 	fps: number;
@@ -161,6 +162,11 @@ async function renderScreen(size: TerminalSize, homeNode: HomeNode) {
 
 	const textRows = nodeToRender.renderStrings(size);
 	const encoder = new TextEncoder();
+
+	assert(textRows.length === size.h, 'IDIOT - REEF IS OUTPUTTING A MISMATCHING HEIGHT');
+	for (const str of textRows) {
+		assert(str.length === size.w, `IDIOT - REEF IS OUTPUTTING A MISMATCHING WIDTH ${str.length}|${size.w}`);
+	}
 
 	// Use ANSI escape codes to move cursor to top-left (1,1) and overwrite lines
 	// \x1b[H - Move cursor to home position (1,1)

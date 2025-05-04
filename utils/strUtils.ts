@@ -1,6 +1,6 @@
 export function padEqual(str: string, len: number, padStr = ' ') {
 	if (len <= str.length) {
-		return str.substring(0, len - 1);
+		return str.substring(0, len);
 	}
 
 	const padLen = Math.floor((len - str.length) / 2);
@@ -12,25 +12,23 @@ export function padEqual(str: string, len: number, padStr = ' ') {
 }
 
 /**
- * 
  * @param lines Input Lines
  * @param height Height of output
  * @returns A string array of length 'height', WARNING - strings are not of any set length
  */
-export function centerHorizontal(lines: string[], height: number): string[]{
-	
+export function centerHorizontal(lines: string[], height: number): string[] {
 	const ll = lines.length;
-	if(ll > height){
+	if (ll > height) {
 		return lines.slice(0, height - 1);
-	}else if (ll === height){
+	} else if (ll === height) {
 		return lines;
-	}else{
+	} else {
 		let strs: string[] = [];
 		const numEmptyLinesToAdd = height - ll;
 		const numEmptyAfter = Math.ceil(numEmptyLinesToAdd / 2);
 		const numEmptyBefore = numEmptyLinesToAdd - numEmptyAfter;
 		addArrayEntries(strs, numEmptyBefore);
-		for(const l of lines){
+		for (const l of lines) {
 			strs.push(l);
 		}
 		addArrayEntries(strs, numEmptyAfter);
@@ -38,8 +36,8 @@ export function centerHorizontal(lines: string[], height: number): string[]{
 	}
 }
 
-function addArrayEntries(arr: string[], num: number){
-	for(let i = 0; i < num; i++){
+function addArrayEntries(arr: string[], num: number) {
+	for (let i = 0; i < num; i++) {
 		arr.push('');
 	}
 }
@@ -77,20 +75,24 @@ export function intStringFixed(int: number, len: number, pad = ' ') {
 	}
 }
 
-
 /**
- * 
  * @param str String to truncate
  * @param len Desired Length
  * @param truncator What truncation is marked with, '...' by default
  * @param lengthener What the extra space is filled with
  */
 export function maybeTruncate(str: string, len: number, truncator = '...', lengthener = ' '): string {
-	if(str.length === len){
+	if (str.length === len) {
 		return str;
-	}else if(str.length < len){
+	} else if (str.length < len) {
 		return str.padEnd(len, lengthener);
-	}else{
+	} else {
 		return str.substring(0, str.length - (1 + truncator.length)) + truncator;
+	}
+}
+
+export function pushNlines(lines: string[], line: string, n: number) {
+	for (let i = 0; i < n; i++) {
+		lines.push(line);
 	}
 }

@@ -1,3 +1,4 @@
+import { assert } from '@std/assert';
 import { centerHorizontal, padEqual, type padRepeat } from '../../../utils/strUtils.ts';
 import type { TerminalSize } from '../../Reef.ts';
 import { Node, NodeOptions } from '../Node.ts';
@@ -68,6 +69,13 @@ export class MainMenuNode extends NavigationNode {
 			for (const rl of allLinesRaw) {
 				finalLines.push(padEqual(rl, size.w));
 			}
+
+			assert(finalLines.length === size.h, 'IDIOT - MainMemberNode IS OUTPUTTING A MISMATCHING HEIGHT');
+
+			for (const str of finalLines) {
+				assert(str.length === size.w, `IDIOT - MainMemberNode IS OUTPUTTING A MISMATCHING WIDTH ${str.length}|${size.w}`);
+			}
+
 			return finalLines;
 		}
 	}

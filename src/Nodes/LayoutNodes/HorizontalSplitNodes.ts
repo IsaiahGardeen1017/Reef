@@ -56,14 +56,12 @@ export class HorizontalSplitNode extends Node<HorizontalSplitNodeOptions> {
 
 export class HorizontalSplitNodeTopInput extends HorizontalSplitNode {
 	override handleInput(input: Uint8Array<ArrayBuffer>): boolean {
-		console.log('top input');
 		return this.top.handleInput(input);
 	}
 }
 
 export class HorizontalSplitNodeBottomInput extends HorizontalSplitNode {
 	override handleInput(input: Uint8Array<ArrayBuffer>): boolean {
-		console.log('bot input');
 		return this.bot.handleInput(input);
 	}
 }

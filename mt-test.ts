@@ -11,8 +11,8 @@ const processWpOutputFunc = (str: string) => {
 	wpScrollingNode.sendLine(str);
 	reefer.redraw = true;
 };
-const wpDir = undefined;
-const wpCmd = ['C:\\Program Files\\Git\\bin\\bash.exe', './example.sh'];
+const wpDir = 'C:\\Rest2.4.4\\iops-rest-packages';
+const wpCmd = ['C:\\Program Files\\Git\\bin\\bash.exe', './scripts/watch-pkg.sh','fhir','-b'];
 const wpRunner = new ProcessRunner(wpCmd, wpDir, processWpOutputFunc);
 const wpInterceptDetails: InterceptDetail[] = [{
 	label: '[Q]uit',
@@ -29,7 +29,7 @@ const wpInterceptDetails: InterceptDetail[] = [{
 	},
 }];
 const leftNode = new InputInterupterNode(wpScrollingNode, wpInterceptDetails);
-wpRunner.start();
+//wpRunner.start();
 
 // SETUP RIGHT NODE
 const restdScrollingNode = new ScrollableFeedNode();
@@ -37,8 +37,8 @@ const processRestOutputFunc = (str: string) => {
 	restdScrollingNode.sendLine(str);
 	reefer.redraw = true;
 };
-const restDir = undefined;
-const restdCmd = ['C:\\Program Files\\Git\\bin\\bash.exe', './example.sh'];
+const restDir = 'C:\\Rest2.4.4\\webapi-server\\packages\\server\\build';
+const restdCmd = ['C:\\Program Files\\Git\\bin\\bash.exe', 'node', '--inspect=3100', 'index'];
 const restdRunner = new ProcessRunner(restdCmd, restDir, processRestOutputFunc);
 const restdInterceptDetails: InterceptDetail[] = [{
 	label: '[Q]uit',
@@ -55,7 +55,7 @@ const restdInterceptDetails: InterceptDetail[] = [{
 	},
 }];
 const rightNode = new InputInterupterNode(restdScrollingNode, restdInterceptDetails);
-restdRunner.start();
+//restdRunner.start();
 
 //SETUP OTHER NODES
 const sideBySide = new SideBySideSelectable(leftNode, rightNode);

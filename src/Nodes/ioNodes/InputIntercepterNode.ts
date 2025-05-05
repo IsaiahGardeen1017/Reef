@@ -41,4 +41,8 @@ export class InputInterupterNode extends Node {
 		}
 		return this.child.handleInput(input);
 	}
+
+	override notifySelectedStatus(isSelected: boolean): boolean {
+		return this.child.notifySelectedStatus(isSelected);
+	}
 }

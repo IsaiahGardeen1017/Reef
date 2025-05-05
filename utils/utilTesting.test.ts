@@ -1,5 +1,5 @@
 import { assert } from '@std/assert/assert';
-import { intStringFixed, padEqual } from './strUtils.ts';
+import { intStringFixed, maybeTruncate, padEqual } from './strUtils.ts';
 import { assertEquals } from '@std/assert';
 
 Deno.test('padEqual Less than', () => {
@@ -42,3 +42,22 @@ Deno.test('simple test', () => {
 	s = intStringFixed(786, 2);
 	assertEquals(s, '_6');
 });
+
+
+Deno.test('maybeTruncate', () => {
+	const strs = [
+		'gfsagfdagfgdagsgafdgfdgfdafgaagfgf',
+		'',
+		'fdsaf',
+		'aaaaasssssddddd',
+		'aaaaasssssdddd',
+		'aaaaasssssddddd1'
+	]
+
+	for(const str of strs){
+		const s = maybeTruncate(str, 15, '...');
+		assert(s.length <= 15, 'Too long: ' + s);
+		assert(maybeTruncate(str, 15, '...', ' ').length === 15, 'Wrong length: ' + s);
+
+	}
+})

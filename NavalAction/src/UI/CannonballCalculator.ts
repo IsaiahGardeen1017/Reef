@@ -17,17 +17,19 @@ class CannonInfo {
 			retStrs.push('Need number of powder');
 		}
 		if (this.numCannons && this.numPowder) {
-			retStrs.push(
-				`For 25 Broadsides you need ${Math.ceil((this.numCannons * 25) / 2)} balls and ${
-					Math.ceil((this.numPowder * 25) / 2)
-				} Powders`,
-			);
+			retStrs.push(`Gun: ${this.numCannons} Powder: ${this.numPowder}`);
+			const broadsideAmounts = [15, 20, 25, 30, 40, 50, 75, 100, 200];
+			for (const b of broadsideAmounts) {
+				const strrrr = `${(b + '').padStart(3, ' ')}: ${(Math.ceil((this.numCannons * b) / 2) + ' balls').padStart(14, ' ')} | ${
+					(Math.ceil((this.numPowder * b) / 2) + ' powder').padStart(15, ' ')
+				}`;
+				retStrs.push(strrrr);
+			}
 		}
 
 		return retStrs;
 	}
 }
-
 export function getCannonBallCalculatorNode(): Node {
 	const infoHolder = new CannonInfo();
 

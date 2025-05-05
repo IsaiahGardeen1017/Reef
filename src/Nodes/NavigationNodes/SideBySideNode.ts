@@ -4,9 +4,9 @@ import { ScrollableFeedNode } from '../ioNodes/ScrollableFeedNode.ts';
 import { Node, NodeOptions } from '../Node.ts';
 
 export type SideBySideOptions = NodeOptions & {
-	splitChar: string;
-	toggleKey: string;
-	selectedStr: string;
+	splitChar?: string;
+	selectedStr?: string;
+	repeatSelectedStr?: boolean;
 };
 
 export class SideBySideSelectable extends Node {
@@ -16,8 +16,8 @@ export class SideBySideSelectable extends Node {
 	rightChild: Node;
 
 	splitChar: string;
-	toggleKey: string;
 	selectedStr: string;
+	repeatSelected: boolean;
 
 	constructor(leftNode: Node, rightNode: Node, opts?: SideBySideOptions) {
 		super(opts);
@@ -25,8 +25,8 @@ export class SideBySideSelectable extends Node {
 		this.rightChild = rightNode;
 		this.leftChild = leftNode;
 		this.splitChar = opts?.splitChar || '|';
-		this.toggleKey = opts?.toggleKey || 't';
 		this.selectedStr = opts?.selectedStr || '=';
+		this.repeatSelected = opts?.repeatSelectedStr || false;
 	}
 
 	override get minHeight(): number {
@@ -38,6 +38,15 @@ export class SideBySideSelectable extends Node {
 		const rightWidth = size.w - leftWidth - 1;
 		const childHeight = size.h - 1;
 
+		let lastStr;
+		if (this.focusedLeft) {
+			lastStr = this.getSelectedChildSubStr(this.leftChild, leftWidth) + this.splitChar +
+				this.getUnselectedChildSubStr(this.rightChild, rightWidth);
+		} else {
+			lastStr = this.getUnselectedChildSubStr(this.leftChild, leftWidth) + this.splitChar +
+				this.getSelectedChildSubStr(this.rightChild, rightWidth);
+		}
+
 		const leftStrs = this.leftChild.renderStrings({ h: childHeight, w: leftWidth });
 		const rightStrs = this.rightChild.renderStrings({ h: childHeight, w: rightWidth });
 
@@ -46,25 +55,25 @@ export class SideBySideSelectable extends Node {
 			finalStrs.push(leftStrs[i] + this.splitChar + rightStrs[i]);
 		}
 
-		let lastStr;
-		if (this.focusedLeft) {
-			lastStr = this.getSelectedChildSubSTr(this.leftChild, leftWidth) + this.splitChar +
-				this.getUnselectedChildSubSTr(this.rightChild, rightWidth);
-		} else {
-			lastStr = this.getUnselectedChildSubSTr(this.leftChild, leftWidth) + this.splitChar +
-				this.getSelectedChildSubSTr(this.rightChild, rightWidth);
-		}
 		finalStrs.push(lastStr);
 
 		return finalStrs;
 	}
 
-	getSelectedChildSubSTr(child: Node, width: number) {
-		let args = child.getArgumentHints();
-		let pot = (args.join(this.selectedStr) + ''.padEnd(3, this.selectedStr)).padStart(width, this.selectedStr);
-		return pot.length > width ? ''.padEnd(width, this.selectedStr) : pot;
+	notifySelectedStatus(isSelected: boolean): boolean {
+		return false;
 	}
-	getUnselectedChildSubSTr(child: Node, width: number) {
+
+	getSelectedChildSubStr(child: Node, width: number) {
+		let args = child.getArgumentHints();
+		const resp = child.notifySelectedStatus(true);
+		const fillStr = this.repeatSelected ? this.selectedStr : ' ';
+		const firestChar = resp ? ' ' : this.selectedStr;
+		let pot = firestChar + (args.join(this.selectedStr) + ''.padEnd(3, fillStr)).padStart(width - 1, fillStr);
+		return pot.length > width ? ''.padEnd(width, fillStr) : pot;
+	}
+	getUnselectedChildSubStr(child: Node, width: number) {
+		child.notifySelectedStatus(false);
 		return ''.padEnd(width, ' ');
 	}
 

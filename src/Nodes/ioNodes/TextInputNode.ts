@@ -12,11 +12,18 @@ export type TextInputOptions = NodeOptions & {
 export class TextInputNode extends InputNode<string, TextInputOptions> {
 	beforeCurser: string;
 	afterCurser: string;
+	selected: boolean;
 
 	constructor(listeners?: ListenerFunction<string>[], opts?: TextInputOptions) {
 		super(listeners, opts);
 		this.beforeCurser = '';
 		this.afterCurser = '';
+		this.selected = false;
+	}
+
+	override notifySelectedStatus(isSelected: boolean): boolean {
+		this.selected = isSelected;
+		return true;
 	}
 
 	addToCurrentText(t: string) {
@@ -77,7 +84,8 @@ export class TextInputNode extends InputNode<string, TextInputOptions> {
 
 		let retStrArr: string[] = [];
 
-		const label = this.opts.label || '> ';
+		const selToRender = this.opts.label || '>';
+		const label = this.selected ? selToRender : ''.padEnd(selToRender.length, ' ');
 
 		const empty = padRepeat(' ', size.w);
 		for (let i = 0; i < size.h; i++) {
@@ -91,8 +99,7 @@ export class TextInputNode extends InputNode<string, TextInputOptions> {
 			textLineStr = textLineStr + padRepeat(' ', size.w - textLineStr.length);
 		}
 
-		const midIndex = size.h === 1 ? 0 : 1;
-		retStrArr[midIndex] = textLineStr;
+		retStrArr[0] = textLineStr;
 
 		return retStrArr;
 	}

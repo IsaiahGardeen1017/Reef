@@ -15,9 +15,9 @@ export abstract class Node<O extends NodeOptions = NodeOptions> {
 
 	abstract get minHeight(): number;
 
-	getArgumentHints(): string[]{
+	getArgumentHints(): string[] {
 		return [];
-	};
+	}
 
 	protected calcMinHeight(min: number): number {
 		if (this.opts?.forcedMinHeight) {
@@ -32,4 +32,10 @@ export abstract class Node<O extends NodeOptions = NodeOptions> {
 	 * @returns true if input was used, false if not
 	 */
 	abstract handleInput(input: Uint8Array<ArrayBuffer>): boolean;
+
+	/**
+	 * @param isSelected Let the node know it is selected
+	 * @returns True if this node can handle being selected, false if not
+	 */
+	abstract notifySelectedStatus(isSelected: boolean): boolean;
 }

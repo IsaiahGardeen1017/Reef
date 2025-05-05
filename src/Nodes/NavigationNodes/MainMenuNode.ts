@@ -79,4 +79,8 @@ export class MainMenuNode extends NavigationNode {
 			return finalLines;
 		}
 	}
+
+	notifySelectedStatus(isSelected: boolean): boolean {
+		return false;
+	}
 }

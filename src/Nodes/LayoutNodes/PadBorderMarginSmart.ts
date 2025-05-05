@@ -56,9 +56,14 @@ function getFiniteSpacingDetail(d: pbmSmartDetails, size: TerminalSize): FinalSp
 		d.padRightPercent = d.padWidthPercent;
 	}
 	if (d.boxWidth) {
-		const leftOver = size.w - d.boxWidth;
-		leftPad = Math.floor(leftOver / 2);
-		rightPad = leftOver - leftPad;
+		const rowsTaked = d.boxWidth + 2;
+		if (rowsTaked > size.w) {
+			//Do nothing?
+		} else {
+			const leftOver = size.w - d.boxWidth;
+			leftPad = Math.floor(leftOver / 2);
+			rightPad = leftOver - leftPad;
+		}
 	} else if (d.padLeftPercent || d.padRightPercent) {
 		assert((d.padLeftPercent || 0) + (d.padRightPercent || 0) < 1, 'Perecent Top and Percent Bottom cant be higher than 1 combined');
 		topPad = d.padLeftPercent ? Math.floor(d.padLeftPercent * size.h) : topPad;
@@ -118,5 +123,9 @@ export class PadBorderMarginSmart extends PadBorderMarginBase {
 
 	override get minHeight(): number {
 		throw new Error('Method not implemented.');
+	}
+
+	notifySelectedStatus(isSelected: boolean): boolean {
+		return false;
 	}
 }

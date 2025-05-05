@@ -5,7 +5,6 @@ export * from './src/Nodes/ioNodes/TextInputNode.ts';
 export * from './src/Nodes/LayoutNodes/BorderNode.ts';
 export * from './src/Nodes/LayoutNodes/CenteredTextNode.ts';
 export * from './src/Nodes/LayoutNodes/HorizontalSplitNodes.ts';
-export * from './src/Nodes/LayoutNodes/PaddingNode.ts';
 export * from './src/Nodes/NavigationNodes/MainMenuNode.ts';
 export * from './src/Nodes/NavigationNodes/NavigationNode.ts';
 export * from './src/Nodes/Node.ts';

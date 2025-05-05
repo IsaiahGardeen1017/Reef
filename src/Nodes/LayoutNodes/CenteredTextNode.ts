@@ -12,6 +12,10 @@ export class CenteredTextNode extends Node {
 		this.numReq = minHeight;
 	}
 
+	setLines(lines: string[]) {
+		this.lines = lines;
+	}
+
 	get minHeight(): number {
 		return this.numReq;
 	}
@@ -22,5 +26,9 @@ export class CenteredTextNode extends Node {
 
 	renderStrings(size: TerminalSize): string[] {
 		return centerText(size, this.lines);
+	}
+
+	override notifySelectedStatus(isSelected: boolean): boolean {
+		return false;
 	}
 }

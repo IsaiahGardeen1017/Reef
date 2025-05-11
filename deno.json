@@ -8,6 +8,7 @@
         "mt": "deno run -A mt-test.ts",
         "keys": "deno run -A key-testing.ts",
         "na": "deno run -A NavalAction/naval-action-main.ts",
+        "craft": "deno run -A NavalAction/simple-crafting-calc.ts",
         "build-exports": "deno run -A build-exports.ts"
     },
     "imports": {

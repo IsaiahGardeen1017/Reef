@@ -28,7 +28,7 @@ export class CenteredTextNode extends Node {
 		return centerText(size, this.lines);
 	}
 
-	override notifySelectedStatus(isSelected: boolean): boolean {
+	notifySelectedStatus(isSelected: boolean): boolean {
 		return false;
 	}
 }

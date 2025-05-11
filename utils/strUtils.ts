@@ -87,7 +87,7 @@ export function maybeTruncate(str: string, len: number, truncator = '...', lengt
 	} else if (str.length < len) {
 		return str.padEnd(len, lengthener);
 	} else {
-		return str.substring(0, str.length - (1 + truncator.length)) + truncator;
+		return str.substring(0, len - (truncator.length)) + truncator;
 	}
 }
 

@@ -88,4 +88,8 @@ export class ScrollableFeedNode extends Node {
 		}
 		return retStrs;
 	}
+
+	override notifySelectedStatus(isSelected: boolean): boolean {
+		return false;
+	}
 }
